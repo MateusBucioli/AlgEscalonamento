@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/11/16 15:06:37.000.328,=C:\Users\mateu\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/11/16 15:34:53.000.971,=C:\Users\mateu\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/11/16 15:38:23.000.103,C:\Users\mateu\Documents\Delphi Projects\AlgEscalonamento\main.pas=C:\Users\mateu\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/11/16 15:38:23.000.103,C:\Users\mateu\Documents\Delphi Projects\AlgEscalonamento\main.dfm=C:\Users\mateu\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2019/11/16 16:03:34.000.600,C:\Users\mateu\Documents\Delphi Projects\AlgEscalonamento\PrjAlgEscalonamento.dproj=C:\Users\mateu\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

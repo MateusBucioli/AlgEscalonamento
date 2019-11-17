@@ -1,0 +1,60 @@
+object frmPrinc: TfrmPrinc
+  Left = 0
+  Top = 0
+  Caption = 'Algoritmos de escalonamento'
+  ClientHeight = 367
+  ClientWidth = 655
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object btnFCFS: TBitBtn
+    Left = 272
+    Top = 112
+    Width = 75
+    Height = 25
+    Caption = 'FCFS'
+    TabOrder = 0
+    OnClick = btnFCFSClick
+  end
+  object btnRR: TBitBtn
+    Left = 272
+    Top = 205
+    Width = 75
+    Height = 25
+    Caption = 'RR'
+    TabOrder = 1
+    OnClick = btnRRClick
+  end
+  object btnSJF: TBitBtn
+    Left = 272
+    Top = 174
+    Width = 75
+    Height = 25
+    Caption = 'SJF'
+    TabOrder = 2
+    OnClick = btnSJFClick
+  end
+  object btnSRT: TBitBtn
+    Left = 272
+    Top = 143
+    Width = 75
+    Height = 25
+    Caption = 'SRT'
+    TabOrder = 3
+    OnClick = btnSRTClick
+  end
+  object grpDados: TGroupBox
+    Left = 8
+    Top = 112
+    Width = 185
+    Height = 105
+    Caption = 'Dados'
+    TabOrder = 4
+  end
+end
