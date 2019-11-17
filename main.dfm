@@ -24,7 +24,6 @@ object frmPrinc: TfrmPrinc
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Resultados'
     TabOrder = 0
-    ExplicitTop = 145
     object btnFCFS: TBitBtn
       Left = 3
       Top = 19
@@ -70,8 +69,6 @@ object frmPrinc: TfrmPrinc
       Align = alRight
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 4
-      ExplicitLeft = 83
-      ExplicitTop = 20
     end
   end
   object grpInfo: TGroupBox
@@ -80,11 +77,9 @@ object frmPrinc: TfrmPrinc
     Width = 268
     Height = 144
     Align = alLeft
-    Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Informa'#231#245'es'
     TabOrder = 1
-    ExplicitTop = -6
-    ExplicitWidth = 273
+    ExplicitLeft = -1
     object txtProcesso: TStaticText
       Left = 4
       Top = 28
@@ -162,7 +157,6 @@ object frmPrinc: TfrmPrinc
     Align = alClient
     Caption = 'Registros'
     TabOrder = 2
-    ExplicitLeft = 279
     object scrlbxRegistros: TScrollBox
       AlignWithMargins = True
       Left = 5
@@ -172,6 +166,8 @@ object frmPrinc: TfrmPrinc
       Align = alClient
       BevelOuter = bvRaised
       TabOrder = 0
+      ExplicitLeft = 6
+      ExplicitTop = 17
     end
   end
 end
