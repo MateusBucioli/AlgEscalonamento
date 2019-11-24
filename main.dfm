@@ -4,11 +4,11 @@ object frmPrinc: TfrmPrinc
   Top = 0
   Anchors = [akLeft]
   Caption = 'Algoritmos de escalonamento'
-  ClientHeight = 284
-  ClientWidth = 559
+  ClientHeight = 490
+  ClientWidth = 560
   Color = clBtnFace
-  Constraints.MinHeight = 315
-  Constraints.MinWidth = 575
+  Constraints.MinHeight = 500
+  Constraints.MinWidth = 560
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -20,7 +20,7 @@ object frmPrinc: TfrmPrinc
   object grpInfo: TGroupBox
     Left = 0
     Top = -1
-    Width = 557
+    Width = 554
     Height = 136
     Hint = 'Informa'#231#245'es do Processo'
     Align = alCustom
@@ -132,7 +132,7 @@ object frmPrinc: TfrmPrinc
         OnClick = btnRRClick
       end
       object btnFCFS: TBitBtn
-        Left = 4
+        Left = 3
         Top = 20
         Width = 75
         Height = 25
@@ -179,22 +179,22 @@ object frmPrinc: TfrmPrinc
     end
   end
   object grpResultados: TGroupBox
-    Left = 323
-    Top = 134
-    Width = 234
-    Height = 147
+    Left = -2
+    Top = 311
+    Width = 556
+    Height = 174
     Align = alCustom
-    Anchors = [akLeft, akTop, akBottom]
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Resultados'
     TabOrder = 2
-    ExplicitHeight = 139
+    ExplicitWidth = 555
     object grdResultados: TDBGrid
       Left = 2
       Top = 15
-      Width = 230
-      Height = 130
+      Width = 552
+      Height = 157
       Align = alClient
-      DataSource = dsResultados
+      DataSource = dsResultado
       ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -210,7 +210,22 @@ object frmPrinc: TfrmPrinc
         end
         item
           Expanded = False
+          FieldName = 'Prioridade'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'OrdemChegada'
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'Metodo'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CiclosCPU'
           Visible = True
         end
         item
@@ -221,22 +236,21 @@ object frmPrinc: TfrmPrinc
     end
   end
   object grpRegistros: TGroupBox
-    Left = 0
-    Top = 134
-    Width = 326
-    Height = 147
+    Left = -4
+    Top = 133
+    Width = 558
+    Height = 174
     Align = alCustom
-    Anchors = [akLeft, akTop, akBottom]
+    Anchors = [akLeft, akTop, akRight]
     Caption = 'Registros'
     TabOrder = 1
-    ExplicitHeight = 139
+    ExplicitWidth = 557
     object grdRegistros: TDBGrid
       Left = 2
       Top = 15
-      Width = 322
-      Height = 130
+      Width = 554
+      Height = 157
       Align = alClient
-      Anchors = [akLeft, akTop, akRight]
       DataSource = dsRegistros
       ReadOnly = True
       TabOrder = 0
@@ -270,9 +284,9 @@ object frmPrinc: TfrmPrinc
   end
   object edtLimpar: TEdit
     Left = 420
-    Top = 18
+    Top = 19
     Width = 121
-    Height = 24
+    Height = 21
     Hint = 'Insira o processo a ser excluido'
     TabOrder = 3
   end
@@ -289,6 +303,7 @@ object frmPrinc: TfrmPrinc
     Top = 190
     object cdsRegistrosProcesso: TStringField
       FieldName = 'Processo'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -307,35 +322,59 @@ object frmPrinc: TfrmPrinc
       Required = True
     end
   end
-  object cdsResultados: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    Left = 328
-    Top = 192
-    object cdsResultadosProcesso: TStringField
-      FieldName = 'Processo'
-      Required = True
-      Size = 10
-    end
-    object cdsResultadosMetodo: TStringField
-      FieldName = 'Metodo'
-      Required = True
-      Size = 4
-    end
-    object cdsResultadosTempoRetorno: TFloatField
-      DisplayLabel = 'Tempo de retorno'
-      FieldName = 'TempoRetorno'
-      Required = True
-    end
-  end
   object dsRegistros: TDataSource
     DataSet = cdsRegistros
     Left = 40
     Top = 191
   end
-  object dsResultados: TDataSource
-    DataSet = cdsResultados
-    Left = 361
+  object dspRegistros: TDataSetProvider
+    DataSet = cdsRegistros
+    Left = 72
     Top = 192
+  end
+  object cdsResultados: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRegistros'
+    Left = 8
+    Top = 360
+    object cdsResultadosProcesso: TStringField
+      FieldName = 'Processo'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object cdsResultadosCiclosCPU: TIntegerField
+      DisplayLabel = 'Ciclos CPU'
+      FieldName = 'CiclosCPU'
+      Required = True
+    end
+    object cdsResultadosOrdemChegada: TIntegerField
+      DisplayLabel = 'Ordem de chegada'
+      FieldName = 'OrdemChegada'
+      Required = True
+    end
+    object cdsResultadosPrioridade: TSmallintField
+      FieldName = 'Prioridade'
+      Required = True
+    end
+    object cdsResultadosTempoRetorno: TFloatField
+      DisplayLabel = 'Tempo de retorno'
+      FieldKind = fkCalculated
+      FieldName = 'TempoRetorno'
+      Calculated = True
+    end
+    object cdsResultadosMetodo: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Metodo'
+      Size = 10
+      Calculated = True
+    end
+  end
+  object dsResultado: TDataSource
+    DataSet = cdsResultados
+    Left = 40
+    Top = 360
   end
 end
