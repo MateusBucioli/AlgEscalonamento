@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Menus;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Menus,
+  Data.DB, Vcl.Grids, Vcl.DBGrids, Datasnap.Provider, Datasnap.DBClient;
 
 type
   Processo = record
@@ -15,11 +16,6 @@ type
 
 type
   TfrmPrinc = class(TForm)
-    grpResultados: TGroupBox;
-    btnFCFS: TBitBtn;
-    btnRR: TBitBtn;
-    btnSJF: TBitBtn;
-    btnSRT: TBitBtn;
     grpInfo: TGroupBox;
     txtProcesso: TStaticText;
     edtProcesso: TEdit;
@@ -29,9 +25,15 @@ type
     txtOrdemChegada: TStaticText;
     txtPrioridade: TStaticText;
     edtPrioridade: TEdit;
+    grpMetodos: TGroupBox;
+    btnFCFS: TBitBtn;
+    btnSRT: TBitBtn;
+    btnSJF: TBitBtn;
+    btnRR: TBitBtn;
+    grpResultados: TGroupBox;
+    dbgrdResultados: TDBGrid;
     grpRegistros: TGroupBox;
-    scrlbxRegistros: TScrollBox;
-    scrlbxResultados: TScrollBox;
+    grdRegistros: TDBGrid;
     procedure btnFCFSClick(Sender: TObject);
     procedure btnSRTClick(Sender: TObject);
     procedure btnSJFClick(Sender: TObject);
