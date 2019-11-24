@@ -2,11 +2,11 @@ object frmPrinc: TfrmPrinc
   Left = 0
   Top = 0
   Caption = 'Algoritmos de escalonamento'
-  ClientHeight = 292
-  ClientWidth = 734
+  ClientHeight = 286
+  ClientWidth = 704
   Color = clBtnFace
   Constraints.MinHeight = 325
-  Constraints.MinWidth = 750
+  Constraints.MinWidth = 720
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -15,71 +15,17 @@ object frmPrinc: TfrmPrinc
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object grpResultados: TGroupBox
-    Left = 0
-    Top = 144
-    Width = 734
-    Height = 148
-    Align = alBottom
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Caption = 'Resultados'
-    TabOrder = 0
-    object btnFCFS: TBitBtn
-      Left = 3
-      Top = 19
-      Width = 75
-      Height = 25
-      Caption = 'FCFS'
-      TabOrder = 0
-      OnClick = btnFCFSClick
-    end
-    object btnRR: TBitBtn
-      Left = 3
-      Top = 106
-      Width = 75
-      Height = 25
-      Caption = 'RR'
-      TabOrder = 1
-      OnClick = btnRRClick
-    end
-    object btnSJF: TBitBtn
-      Left = 3
-      Top = 77
-      Width = 75
-      Height = 25
-      Caption = 'SJF'
-      TabOrder = 2
-      OnClick = btnSJFClick
-    end
-    object btnSRT: TBitBtn
-      Left = 3
-      Top = 48
-      Width = 75
-      Height = 25
-      Caption = 'SRT'
-      TabOrder = 3
-      OnClick = btnSRTClick
-    end
-    object scrlbxResultados: TScrollBox
-      AlignWithMargins = True
-      Left = 81
-      Top = 18
-      Width = 648
-      Height = 125
-      Align = alRight
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      TabOrder = 4
-    end
-  end
   object grpInfo: TGroupBox
     Left = 0
     Top = 0
-    Width = 268
-    Height = 144
-    Align = alLeft
+    Width = 239
+    Height = 139
+    Hint = 'Informa'#231#245'es do Processo'
+    Align = alCustom
     Caption = 'Informa'#231#245'es'
-    TabOrder = 1
-    ExplicitLeft = -1
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
     object txtProcesso: TStaticText
       Left = 4
       Top = 28
@@ -90,7 +36,7 @@ object frmPrinc: TfrmPrinc
       TabOrder = 0
     end
     object edtProcesso: TEdit
-      Left = 121
+      Left = 106
       Top = 24
       Width = 121
       Height = 21
@@ -98,7 +44,7 @@ object frmPrinc: TfrmPrinc
       TabOrder = 1
     end
     object edtCiclos: TEdit
-      Left = 121
+      Left = 106
       Top = 52
       Width = 121
       Height = 21
@@ -115,7 +61,7 @@ object frmPrinc: TfrmPrinc
       TabOrder = 3
     end
     object edtOrdemChegada: TEdit
-      Left = 121
+      Left = 106
       Top = 80
       Width = 121
       Height = 21
@@ -141,7 +87,7 @@ object frmPrinc: TfrmPrinc
       TabOrder = 6
     end
     object edtPrioridade: TEdit
-      Left = 121
+      Left = 106
       Top = 107
       Width = 121
       Height = 21
@@ -149,25 +95,111 @@ object frmPrinc: TfrmPrinc
       TabOrder = 7
     end
   end
-  object grpRegistros: TGroupBox
-    Left = 268
-    Top = 0
-    Width = 466
-    Height = 144
-    Align = alClient
-    Caption = 'Registros'
-    TabOrder = 2
-    object scrlbxRegistros: TScrollBox
-      AlignWithMargins = True
-      Left = 5
-      Top = 18
-      Width = 456
-      Height = 121
-      Align = alClient
-      BevelOuter = bvRaised
+  object grpMetodos: TGroupBox
+    Left = 0
+    Top = 143
+    Width = 239
+    Height = 139
+    Hint = 'M'#233'todo de escalonamento a ser utilizado'
+    Caption = 'Metodos'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    object btnFCFS: TBitBtn
+      Left = 4
+      Top = 20
+      Width = 75
+      Height = 25
+      Hint = 'First Come First Served'
+      Align = alCustom
+      Caption = 'FCFS'
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
-      ExplicitLeft = 6
-      ExplicitTop = 17
+      OnClick = btnFCFSClick
+    end
+    object btnSRT: TBitBtn
+      Left = 4
+      Top = 49
+      Width = 75
+      Height = 25
+      Hint = 'Shortest Remaining Time'
+      Caption = 'SRT'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnClick = btnSRTClick
+    end
+    object btnSJF: TBitBtn
+      Left = 4
+      Top = 78
+      Width = 75
+      Height = 25
+      Hint = 'Shortest Job First'
+      Caption = 'SJF'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnClick = btnSJFClick
+    end
+    object btnRR: TBitBtn
+      Left = 4
+      Top = 107
+      Width = 75
+      Height = 25
+      Hint = 'Round Robin'
+      Align = alCustom
+      Caption = 'RR'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnClick = btnRRClick
+    end
+  end
+  object grpResultados: TGroupBox
+    Left = 238
+    Top = 143
+    Width = 465
+    Height = 139
+    Align = alCustom
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Caption = 'Resultados'
+    TabOrder = 2
+    object dbgrdResultados: TDBGrid
+      Left = 2
+      Top = 15
+      Width = 461
+      Height = 122
+      Align = alClient
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+    end
+  end
+  object grpRegistros: TGroupBox
+    Left = 238
+    Top = 0
+    Width = 465
+    Height = 139
+    Align = alCustom
+    Anchors = [akLeft, akTop, akRight]
+    Caption = 'Registros'
+    TabOrder = 3
+    object grdRegistros: TDBGrid
+      Left = 2
+      Top = 15
+      Width = 461
+      Height = 122
+      Align = alClient
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
     end
   end
 end
