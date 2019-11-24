@@ -1,9 +1,10 @@
 object frmPrinc: TfrmPrinc
+  AlignWithMargins = True
   Left = 0
   Top = 0
   Anchors = [akLeft]
   Caption = 'Algoritmos de escalonamento'
-  ClientHeight = 276
+  ClientHeight = 284
   ClientWidth = 559
   Color = clBtnFace
   Constraints.MinHeight = 315
@@ -28,50 +29,26 @@ object frmPrinc: TfrmPrinc
     ShowHint = True
     TabOrder = 0
     object txtProcesso: TStaticText
-      Left = 4
-      Top = 28
+      Left = 3
+      Top = 24
       Width = 47
       Height = 17
       Align = alCustom
       Caption = 'Processo'
       TabOrder = 6
     end
-    object edtProcesso: TEdit
-      Left = 106
-      Top = 24
-      Width = 121
-      Height = 21
-      Align = alCustom
-      TabOrder = 0
-    end
-    object edtCiclos: TEdit
-      Left = 106
-      Top = 52
-      Width = 121
-      Height = 21
-      Align = alCustom
-      TabOrder = 1
-    end
     object txtCiclos: TStaticText
-      Left = 4
-      Top = 55
+      Left = 3
+      Top = 53
       Width = 54
       Height = 17
       Align = alCustom
       Caption = 'Ciclos CPU'
       TabOrder = 7
     end
-    object edtOrdemChegada: TEdit
-      Left = 106
-      Top = 80
-      Width = 121
-      Height = 21
-      Align = alCustom
-      TabOrder = 2
-    end
     object txtOrdemChegada: TStaticText
-      Left = 4
-      Top = 83
+      Left = 3
+      Top = 82
       Width = 97
       Height = 17
       Align = alCustom
@@ -79,39 +56,33 @@ object frmPrinc: TfrmPrinc
       TabOrder = 8
     end
     object txtPrioridade: TStaticText
-      Left = 4
-      Top = 110
+      Left = 3
+      Top = 111
       Width = 52
       Height = 17
       Align = alCustom
       Caption = 'Prioridade'
       TabOrder = 9
     end
-    object edtPrioridade: TEdit
-      Left = 106
-      Top = 107
-      Width = 121
-      Height = 21
-      Align = alCustom
-      TabOrder = 3
-    end
     object btnAdicionarProcesso: TBitBtn
       Left = 258
-      Top = 21
+      Top = 19
       Width = 75
       Height = 24
       Hint = 'Adiciona as informa'#231#245'es do processo na tabela de registros'
       Caption = 'Adicionar'
       TabOrder = 4
+      OnClick = btnAdicionarProcessoClick
     end
     object btnLimpaReg: TBitBtn
       Left = 339
-      Top = 20
+      Top = 19
       Width = 75
-      Height = 25
+      Height = 24
       Hint = 'Limpa todos os registros'
       Caption = 'Limpar'
       TabOrder = 5
+      OnClick = btnLimpaRegClick
     end
     object grpMetodos: TGroupBox
       Left = 254
@@ -174,21 +145,54 @@ object frmPrinc: TfrmPrinc
         OnClick = btnFCFSClick
       end
     end
+    object edtCiclos: TEdit
+      Left = 106
+      Top = 49
+      Width = 121
+      Height = 21
+      Align = alCustom
+      TabOrder = 1
+    end
+    object edtOrdemChegada: TEdit
+      Left = 106
+      Top = 78
+      Width = 121
+      Height = 21
+      Align = alCustom
+      TabOrder = 2
+    end
+    object edtPrioridade: TEdit
+      Left = 106
+      Top = 107
+      Width = 121
+      Height = 21
+      Align = alCustom
+      TabOrder = 3
+    end
+    object edtProcesso: TEdit
+      Left = 106
+      Top = 20
+      Width = 121
+      Height = 21
+      Align = alCustom
+      TabOrder = 0
+    end
   end
   object grpResultados: TGroupBox
-    Left = 314
+    Left = 323
     Top = 134
-    Width = 245
-    Height = 139
+    Width = 234
+    Height = 147
     Align = alCustom
     Anchors = [akLeft, akTop, akBottom]
     Caption = 'Resultados'
     TabOrder = 2
+    ExplicitHeight = 139
     object grdResultados: TDBGrid
       Left = 2
       Top = 15
-      Width = 241
-      Height = 122
+      Width = 230
+      Height = 130
       Align = alClient
       DataSource = dsResultados
       ReadOnly = True
@@ -219,17 +223,18 @@ object frmPrinc: TfrmPrinc
   object grpRegistros: TGroupBox
     Left = 0
     Top = 134
-    Width = 317
-    Height = 139
+    Width = 326
+    Height = 147
     Align = alCustom
     Anchors = [akLeft, akTop, akBottom]
     Caption = 'Registros'
     TabOrder = 1
+    ExplicitHeight = 139
     object grdRegistros: TDBGrid
       Left = 2
       Top = 15
-      Width = 313
-      Height = 122
+      Width = 322
+      Height = 130
       Align = alClient
       Anchors = [akLeft, akTop, akRight]
       DataSource = dsRegistros
@@ -263,14 +268,27 @@ object frmPrinc: TfrmPrinc
         end>
     end
   end
+  object edtLimpar: TEdit
+    Left = 420
+    Top = 18
+    Width = 121
+    Height = 24
+    Hint = 'Insira o processo a ser excluido'
+    TabOrder = 3
+  end
   object cdsRegistros: TClientDataSet
+    PersistDataPacket.Data = {
+      710000009619E0BD01000000180000000400000000000300000071000850726F
+      636573736F0100490004000100055749445448020002000A00094369636C6F73
+      43505504000100040000000C4F7264656D436865676164610400010004000000
+      0A5072696F72696461646502000100040000000000}
+    Active = True
     Aggregates = <>
     Params = <>
-    Left = 488
-    Top = 6
+    Left = 8
+    Top = 190
     object cdsRegistrosProcesso: TStringField
       FieldName = 'Processo'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -292,11 +310,10 @@ object frmPrinc: TfrmPrinc
   object cdsResultados: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 488
-    Top = 48
+    Left = 328
+    Top = 192
     object cdsResultadosProcesso: TStringField
       FieldName = 'Processo'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -313,12 +330,12 @@ object frmPrinc: TfrmPrinc
   end
   object dsRegistros: TDataSource
     DataSet = cdsRegistros
-    Left = 520
-    Top = 7
+    Left = 40
+    Top = 191
   end
   object dsResultados: TDataSource
     DataSet = cdsResultados
-    Left = 521
-    Top = 48
+    Left = 361
+    Top = 192
   end
 end
