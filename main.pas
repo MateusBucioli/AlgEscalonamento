@@ -55,6 +55,9 @@ type
 
   private
     { Private declarations }
+    vgTempoTotal: Integer;
+    vgCount: Integer;
+    vgTempomedio: Integer;
     procedure limpaRegistroEscolhido;
     procedure limpaTodosRegistros;
     procedure adicionaRegistro;
@@ -165,16 +168,13 @@ begin
 end;
 
 procedure TfrmPrinc.btnFCFSClick(Sender: TObject);
-var
-  vTempoTotal: Integer;
-  vCount: Integer;
-  vTempomedio: Integer;
 begin
   cdsRegistros.IndexName := 'OrdemChegadaCrescente';
   cdsResultados.IndexName := 'OrdemChegadaCrescente';
-  vTempoTotal := 0;
-  vCount := 0;
-  vTempoMedio := 0;
+
+  vgTempoTotal := 0;
+  vgTempomedio := 0;
+  vgCount := 0;
 
   try
     cdsResultados.Active := True;
@@ -196,12 +196,59 @@ begin
 
       cdsResultadosMetodo.AsString := 'FCFS';
 
-      vTempoTotal := vTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
-      cdsResultadosTempoRetorno.AsInteger := vTempoTotal;
+      vgTempoTotal := vgTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
+      cdsResultadosTempoRetorno.AsInteger := vgTempoTotal;
 
-      vTempoMedio := vTempoMedio + vTempoTotal;
-      vCount := vCount + 1;
-      cdsResultadosTempoMedio.AsFloat := vTempoMedio / vCount;
+      vgTempomedio := vgTempomedio + vgTempoTotal;
+      vgCount := vgCount + 1;
+      cdsResultadosTempoMedio.AsFloat := vgTempomedio / vgCount;
+
+      cdsRegistros.Next;
+      cdsResultados.Next;
+    end;
+  except
+  on e:Exception do
+    begin
+      ShowMessage('Erro na execução do método.'+#13+' Motivo: ' + e.message);
+    end;
+  end;
+end;
+
+procedure TfrmPrinc.btnSJFClick(Sender: TObject);
+begin
+  cdsResultados.IndexName := 'CiclosCPUCrescente';
+  cdsRegistros.IndexName := 'CiclosCPUCrescente';
+
+  vgTempoTotal := 0;
+  vgTempomedio := 0;
+  vgCount := 0;
+
+  try
+    cdsResultados.Active := True;
+    cdsResultados.EmptyDataSet;
+
+    cdsRegistros.Active := True;
+    cdsRegistros.First;
+
+    cdsResultados.Active := True;
+    cdsResultados.First;
+
+    while (not cdsRegistros.Eof) do
+    begin
+      cdsResultados.Append;
+      cdsResultadosProcesso.AsString := cdsRegistrosProcesso.AsString;
+      cdsResultadosPrioridade.AsInteger := cdsRegistrosPrioridade.AsInteger;
+      cdsResultadosOrdemChegada.AsInteger := cdsRegistrosOrdemChegada.AsInteger;
+      cdsResultadosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
+
+      cdsResultadosMetodo.AsString := 'SJF';
+
+      vgTempoTotal := vgTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
+      cdsResultadosTempoRetorno.AsInteger := vgTempoTotal;
+
+      vgTempomedio := vgTempomedio + vgTempoTotal;
+      vgCount := vgCount + 1;
+      cdsResultadosTempoMedio.AsFloat := vgTempomedio / vgCount;
 
       cdsRegistros.Next;
       cdsResultados.Next;
@@ -215,11 +262,6 @@ begin
 end;
 
 procedure TfrmPrinc.btnRRClick(Sender: TObject);
-begin
-  //
-end;
-
-procedure TfrmPrinc.btnSJFClick(Sender: TObject);
 begin
   //
 end;

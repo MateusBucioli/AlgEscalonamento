@@ -335,6 +335,10 @@ object frmPrinc: TfrmPrinc
       item
         Name = 'OrdemChegadaCrescente'
         Fields = 'OrdemChegada'
+      end
+      item
+        Name = 'CiclosCPUCrescente'
+        Fields = 'CiclosCPU'
       end>
     Params = <>
     StoreDefs = True
@@ -418,6 +422,9 @@ object frmPrinc: TfrmPrinc
       item
         Name = 'OrdemChegadaCrescente'
         Fields = 'OrdemChegada'
+      end
+      item
+        Name = 'CiclosCPUCrescente'
       end>
     Params = <>
     StoreDefs = True
