@@ -194,7 +194,7 @@ object frmPrinc: TfrmPrinc
       Width = 552
       Height = 157
       Align = alClient
-      DataSource = dsResultado
+      DataSource = dsResultados
       ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -220,17 +220,22 @@ object frmPrinc: TfrmPrinc
         end
         item
           Expanded = False
-          FieldName = 'Metodo'
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'CiclosCPU'
           Visible = True
         end
         item
           Expanded = False
+          FieldName = 'Metodo'
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'TempoRetorno'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TempoMedio'
           Visible = True
         end>
     end
@@ -298,7 +303,41 @@ object frmPrinc: TfrmPrinc
       0A5072696F72696461646502000100040000000000}
     Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Processo'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 10
+      end
+      item
+        Name = 'CiclosCPU'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'OrdemChegada'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'Prioridade'
+        Attributes = [faRequired]
+        DataType = ftSmallint
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end
+      item
+        Name = 'OrdemChegadaCrescente'
+        Fields = 'OrdemChegada'
+      end>
     Params = <>
+    StoreDefs = True
     Left = 8
     Top = 190
     object cdsRegistrosProcesso: TStringField
@@ -327,27 +366,70 @@ object frmPrinc: TfrmPrinc
     Left = 40
     Top = 191
   end
-  object dspRegistros: TDataSetProvider
-    DataSet = cdsRegistros
-    Left = 72
-    Top = 192
-  end
   object cdsResultados: TClientDataSet
+    PersistDataPacket.Data = {
+      B40000009619E0BD010000001800000007000000000003000000B4000850726F
+      636573736F0100490004000100055749445448020002000A000A5072696F7269
+      6461646504000100040000000C4F7264656D4368656761646104000100040000
+      00094369636C6F734350550400010004000000064D65746F646F010049000400
+      01000557494454480200020005000C54656D706F5265746F726E6F0400010004
+      0000000A54656D706F4D6564696F08000400040000000000}
     Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Processo'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 10
+      end
+      item
+        Name = 'Prioridade'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'OrdemChegada'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'CiclosCPU'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'Metodo'
+        Attributes = [faRequired]
+        DataType = ftString
+        Size = 5
+      end
+      item
+        Name = 'TempoRetorno'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'TempoMedio'
+        Attributes = [faRequired]
+        DataType = ftFloat
+      end>
+    IndexDefs = <
+      item
+        Name = 'OrdemChegadaCrescente'
+        Fields = 'OrdemChegada'
+      end>
     Params = <>
-    ProviderName = 'dspRegistros'
+    StoreDefs = True
     Left = 8
-    Top = 360
+    Top = 368
     object cdsResultadosProcesso: TStringField
       FieldName = 'Processo'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
-    object cdsResultadosCiclosCPU: TIntegerField
-      DisplayLabel = 'Ciclos CPU'
-      FieldName = 'CiclosCPU'
+    object cdsResultadosPrioridade: TIntegerField
+      FieldName = 'Prioridade'
       Required = True
     end
     object cdsResultadosOrdemChegada: TIntegerField
@@ -355,26 +437,32 @@ object frmPrinc: TfrmPrinc
       FieldName = 'OrdemChegada'
       Required = True
     end
-    object cdsResultadosPrioridade: TSmallintField
-      FieldName = 'Prioridade'
+    object cdsResultadosCiclosCPU: TIntegerField
+      DisplayLabel = 'Ciclos CPU'
+      FieldName = 'CiclosCPU'
       Required = True
     end
-    object cdsResultadosTempoRetorno: TFloatField
-      DisplayLabel = 'Tempo de retorno'
-      FieldKind = fkCalculated
-      FieldName = 'TempoRetorno'
-      Calculated = True
-    end
     object cdsResultadosMetodo: TStringField
-      FieldKind = fkCalculated
+      DisplayLabel = 'M'#233'todo'
       FieldName = 'Metodo'
-      Size = 10
-      Calculated = True
+      Required = True
+      Size = 5
+    end
+    object cdsResultadosTempoRetorno: TIntegerField
+      DisplayLabel = 'Tempo de retorno'
+      FieldName = 'TempoRetorno'
+      Required = True
+    end
+    object cdsResultadosTempoMedio: TFloatField
+      DisplayLabel = 'Tempo m'#233'dio'
+      FieldName = 'TempoMedio'
+      Required = True
+      Precision = 2
     end
   end
-  object dsResultado: TDataSource
+  object dsResultados: TDataSource
     DataSet = cdsResultados
-    Left = 40
-    Top = 360
+    Left = 46
+    Top = 367
   end
 end

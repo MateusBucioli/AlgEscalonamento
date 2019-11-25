@@ -37,15 +37,15 @@ type
     edtPrioridade: TEdit;
     edtProcesso: TEdit;
     edtLimpar: TEdit;
-    dspRegistros: TDataSetProvider;
     cdsResultados: TClientDataSet;
     cdsResultadosProcesso: TStringField;
+    cdsResultadosTempoRetorno: TIntegerField;
     cdsResultadosCiclosCPU: TIntegerField;
-    cdsResultadosOrdemChegada: TIntegerField;
-    cdsResultadosPrioridade: TSmallintField;
-    cdsResultadosTempoRetorno: TFloatField;
+    cdsResultadosTempoMedio: TFloatField;
     cdsResultadosMetodo: TStringField;
-    dsResultado: TDataSource;
+    cdsResultadosOrdemChegada: TIntegerField;
+    cdsResultadosPrioridade: TIntegerField;
+    dsResultados: TDataSource;
     procedure btnFCFSClick(Sender: TObject);
     procedure btnSRTClick(Sender: TObject);
     procedure btnSJFClick(Sender: TObject);
@@ -166,8 +166,16 @@ end;
 
 procedure TfrmPrinc.btnFCFSClick(Sender: TObject);
 var
-  vTempoTotal: Double;
+  vTempoTotal: Integer;
+  vCount: Integer;
+  vTempomedio: Integer;
 begin
+  cdsRegistros.IndexName := 'OrdemChegadaCrescente';
+  cdsResultados.IndexName := 'OrdemChegadaCrescente';
+  vTempoTotal := 0;
+  vCount := 0;
+  vTempoMedio := 0;
+
   try
     cdsResultados.Active := True;
     cdsResultados.EmptyDataSet;
@@ -188,8 +196,12 @@ begin
 
       cdsResultadosMetodo.AsString := 'FCFS';
 
-      vTempoTotal := vTempoTotal + cdsRegistrosCiclosCPU.AsFloat;
-      cdsResultadosTempoRetorno.AsFloat := vTempoTotal;
+      vTempoTotal := vTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
+      cdsResultadosTempoRetorno.AsInteger := vTempoTotal;
+
+      vTempoMedio := vTempoMedio + vTempoTotal;
+      vCount := vCount + 1;
+      cdsResultadosTempoMedio.AsFloat := vTempoMedio / vCount;
 
       cdsRegistros.Next;
       cdsResultados.Next;
