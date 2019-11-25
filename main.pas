@@ -262,13 +262,132 @@ begin
 end;
 
 procedure TfrmPrinc.btnRRClick(Sender: TObject);
+var
+  vQuantum: Integer;
+  vRetorno: Boolean;
+
 begin
-  //
+  cdsResultados.IndexName := '';
+  cdsRegistros.IndexName := '';
+
+  vgTempoTotal := 0;
+  vgTempomedio := 0;
+  vgCount := 0;
+  vQuantum := 50;
+  vRetorno := False;
+
+  try
+    cdsResultados.Active := True;
+    cdsResultados.EmptyDataSet;
+
+    cdsResultados.Append;
+    cdsResultadosTempoRetorno.AsInteger := 0;
+    cdsResultadosTempoMedio.AsFloat := 0;
+    cdsResultadosProcesso.AsString := '';
+    cdsResultadosPrioridade.AsInteger := 0;
+    cdsResultadosOrdemChegada.AsInteger := 0;
+    cdsResultadosCiclosCPU.AsInteger := 0;
+    cdsResultadosMetodo.AsString := '';
+
+    cdsRegistros.Active := True;
+    cdsRegistros.First;
+
+    cdsResultados.Active := True;
+    cdsResultados.First;
+
+    while (not cdsRegistros.Eof) do
+    begin
+      cdsResultados.Append;
+      cdsResultadosProcesso.AsString := cdsRegistrosProcesso.AsString;
+      cdsResultadosPrioridade.AsInteger := cdsRegistrosPrioridade.AsInteger;
+      cdsResultadosOrdemChegada.AsInteger := cdsRegistrosOrdemChegada.AsInteger;
+      cdsResultadosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
+
+      cdsResultadosMetodo.AsString := 'RR';
+
+      if cdsRegistrosCiclosCPU.AsInteger > vQuantum then
+      begin
+        cdsResultados.Append;
+        cdsRegistrosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger - vQuantum;
+        cdsResultadosTempoRetorno.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
+        vRetorno := True;
+      end
+      else
+      begin
+        cdsResultados.Append;
+        vgTempoTotal := vgTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
+        cdsResultadosTempoRetorno.AsInteger := vgTempoTotal;
+
+        vgTempomedio := vgTempomedio + vgTempoTotal;
+        vgCount := vgCount + 1;
+        cdsResultadosTempoMedio.AsFloat := vgTempomedio / vgCount;
+      end;
+
+      cdsRegistros.Next;
+      cdsResultados.Next;
+
+      if (cdsRegistros.Eof) = true then
+      begin
+        if vRetorno then
+        begin
+          cdsRegistros.Active := True;
+          cdsRegistros.First;
+        end;
+      end;
+    end;
+  except
+  on e:Exception do
+    begin
+      ShowMessage('Erro na execução do método.'+#13+' Motivo: ' + e.message);
+    end;
+  end;
 end;
 
 procedure TfrmPrinc.btnSRTClick(Sender: TObject);
 begin
-  //
+  cdsResultados.IndexName := 'CiclosCPUCrescente';
+  cdsRegistros.IndexName := 'CiclosCPUCrescente';
+
+  vgTempoTotal := 0;
+  vgTempomedio := 0;
+  vgCount := 0;
+
+  try
+    cdsResultados.Active := True;
+    cdsResultados.EmptyDataSet;
+
+    cdsRegistros.Active := True;
+    cdsRegistros.First;
+
+    cdsResultados.Active := True;
+    cdsResultados.First;
+
+    while (not cdsRegistros.Eof) do
+    begin
+      cdsResultados.Append;
+      cdsResultadosProcesso.AsString := cdsRegistrosProcesso.AsString;
+      cdsResultadosPrioridade.AsInteger := cdsRegistrosPrioridade.AsInteger;
+      cdsResultadosOrdemChegada.AsInteger := cdsRegistrosOrdemChegada.AsInteger;
+      cdsResultadosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
+
+      cdsResultadosMetodo.AsString := 'SRT';
+
+      vgTempoTotal := vgTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
+      cdsResultadosTempoRetorno.AsInteger := vgTempoTotal;
+
+      vgTempomedio := vgTempomedio + vgTempoTotal;
+      vgCount := vgCount + 1;
+      cdsResultadosTempoMedio.AsFloat := vgTempomedio / vgCount;
+
+      cdsRegistros.Next;
+      cdsResultados.Next;
+    end;
+  except
+  on e:Exception do
+    begin
+      ShowMessage('Erro na execução do método.'+#13+' Motivo: ' + e.message);
+    end;
+  end;
 end;
 
 end.

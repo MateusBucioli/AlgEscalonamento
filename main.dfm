@@ -432,38 +432,31 @@ object frmPrinc: TfrmPrinc
     Top = 368
     object cdsResultadosProcesso: TStringField
       FieldName = 'Processo'
-      Required = True
       Size = 10
     end
     object cdsResultadosPrioridade: TIntegerField
       FieldName = 'Prioridade'
-      Required = True
     end
     object cdsResultadosOrdemChegada: TIntegerField
       DisplayLabel = 'Ordem de chegada'
       FieldName = 'OrdemChegada'
-      Required = True
     end
     object cdsResultadosCiclosCPU: TIntegerField
       DisplayLabel = 'Ciclos CPU'
       FieldName = 'CiclosCPU'
-      Required = True
     end
     object cdsResultadosMetodo: TStringField
       DisplayLabel = 'M'#233'todo'
       FieldName = 'Metodo'
-      Required = True
       Size = 5
     end
     object cdsResultadosTempoRetorno: TIntegerField
       DisplayLabel = 'Tempo de retorno'
       FieldName = 'TempoRetorno'
-      Required = True
     end
     object cdsResultadosTempoMedio: TFloatField
       DisplayLabel = 'Tempo m'#233'dio'
       FieldName = 'TempoMedio'
-      Required = True
       Precision = 2
     end
   end
