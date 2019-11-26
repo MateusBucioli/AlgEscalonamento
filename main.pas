@@ -46,6 +46,7 @@ type
     cdsResultadosOrdemChegada: TIntegerField;
     cdsResultadosPrioridade: TIntegerField;
     dsResultados: TDataSource;
+    cdsAux: TClientDataSet;
     procedure btnFCFSClick(Sender: TObject);
     procedure btnSRTClick(Sender: TObject);
     procedure btnSJFClick(Sender: TObject);
@@ -267,6 +268,14 @@ var
   vRetorno: Boolean;
 
 begin
+// Metodo está falhando devido a um erro na implementação do CDS
+// Devido a falta de tempo a correção do erro não foi possível
+// O método RR depende principalmente de um espaço de tempo denominado qunatum
+// Onde todos os processos podem ser executados independentes de uas caracteristicas contanto
+// que o quantum nao finalize, ao final do quantum o algoritmo ira visualizar o proximo processo
+// e só retornará ao processo que expirou quando a lista for completamente finalizada
+// seguindo esse fluxo, ele percorrera inumeras vezes a lista até todos os processos sejam finalizados
+
   cdsResultados.IndexName := '';
   cdsRegistros.IndexName := '';
 
@@ -280,41 +289,30 @@ begin
     cdsResultados.Active := True;
     cdsResultados.EmptyDataSet;
 
-    cdsResultados.Append;
-    cdsResultadosTempoRetorno.AsInteger := 0;
-    cdsResultadosTempoMedio.AsFloat := 0;
-    cdsResultadosProcesso.AsString := '';
-    cdsResultadosPrioridade.AsInteger := 0;
-    cdsResultadosOrdemChegada.AsInteger := 0;
-    cdsResultadosCiclosCPU.AsInteger := 0;
-    cdsResultadosMetodo.AsString := '';
-
     cdsRegistros.Active := True;
     cdsRegistros.First;
 
     cdsResultados.Active := True;
     cdsResultados.First;
 
+    cdsResultados.Append;
     while (not cdsRegistros.Eof) do
     begin
-      cdsResultados.Append;
-      cdsResultadosProcesso.AsString := cdsRegistrosProcesso.AsString;
-      cdsResultadosPrioridade.AsInteger := cdsRegistrosPrioridade.AsInteger;
-      cdsResultadosOrdemChegada.AsInteger := cdsRegistrosOrdemChegada.AsInteger;
-      cdsResultadosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
-
-      cdsResultadosMetodo.AsString := 'RR';
-
       if cdsRegistrosCiclosCPU.AsInteger > vQuantum then
       begin
-        cdsResultados.Append;
-        cdsRegistrosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger - vQuantum;
+        cdsResultadosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger - vQuantum;
         cdsResultadosTempoRetorno.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
         vRetorno := True;
       end
       else
       begin
-        cdsResultados.Append;
+        cdsResultadosProcesso.AsString := cdsRegistrosProcesso.AsString;
+        cdsResultadosPrioridade.AsInteger := cdsRegistrosPrioridade.AsInteger;
+        cdsResultadosOrdemChegada.AsInteger := cdsRegistrosOrdemChegada.AsInteger;
+        cdsResultadosCiclosCPU.AsInteger := cdsRegistrosCiclosCPU.AsInteger;
+
+        cdsResultadosMetodo.AsString := 'RR';
+
         vgTempoTotal := vgTempoTotal + cdsRegistrosCiclosCPU.AsInteger;
         cdsResultadosTempoRetorno.AsInteger := vgTempoTotal;
 
@@ -323,16 +321,21 @@ begin
         cdsResultadosTempoMedio.AsFloat := vgTempomedio / vgCount;
       end;
 
-      cdsRegistros.Next;
-      cdsResultados.Next;
-
       if (cdsRegistros.Eof) = true then
       begin
         if vRetorno then
         begin
+          cdsResultados.Active := True;
+          cdsResultados.First;
+
           cdsRegistros.Active := True;
           cdsRegistros.First;
         end;
+      end
+      else
+      begin
+        cdsRegistros.Next;
+        cdsResultados.Next;
       end;
     end;
   except

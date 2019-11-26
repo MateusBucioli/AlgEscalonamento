@@ -187,7 +187,6 @@ object frmPrinc: TfrmPrinc
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Resultados'
     TabOrder = 2
-    ExplicitWidth = 555
     object grdResultados: TDBGrid
       Left = 2
       Top = 15
@@ -249,7 +248,6 @@ object frmPrinc: TfrmPrinc
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Registros'
     TabOrder = 1
-    ExplicitWidth = 557
     object grdRegistros: TDBGrid
       Left = 2
       Top = 15
@@ -347,22 +345,18 @@ object frmPrinc: TfrmPrinc
     object cdsRegistrosProcesso: TStringField
       FieldName = 'Processo'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
       Size = 10
     end
     object cdsRegistrosCiclosCPU: TIntegerField
       DisplayLabel = 'Ciclos CPU'
       FieldName = 'CiclosCPU'
-      Required = True
     end
     object cdsRegistrosOrdemChegada: TIntegerField
       DisplayLabel = 'Ordem de chegada'
       FieldName = 'OrdemChegada'
-      Required = True
     end
     object cdsRegistrosPrioridade: TSmallintField
       FieldName = 'Prioridade'
-      Required = True
     end
   end
   object dsRegistros: TDataSource
@@ -464,5 +458,11 @@ object frmPrinc: TfrmPrinc
     DataSet = cdsResultados
     Left = 46
     Top = 367
+  end
+  object cdsAux: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 272
+    Top = 248
   end
 end
